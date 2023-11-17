@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@700&family=Quicksand:wght@300&display=swap');
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+:root {
+  --primary-color: #704072;
+  --secondary-color: #eae0cb;
+  --text-color: #282c34;
+  --text-color-secondary: #f5f6f7;
+  --footer-color: #3c3639;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+body {
+  font-family: "Quicksand", sans-serif !important;
+  background-color: var(--secondary-color) !important;
+  color: var(--text-color) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Chivo", sans-serif !important;
+}
+
+
+
+#app .bg-primary {
+  background-color: var(--primary-color) !important;
+}
+
+#app .btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+#app .btn-outline-primary {
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
+}
+#app .btn-outline-primary:hover {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--secondary-color) !important;
+}
+#app .css-zddlty-MuiButtonBase-root-MuiButton-root {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+#app .css-zddlty-MuiButtonBase-root-MuiButton-root:hover {
+  background-color: var(--secondary-color) !important;
+  color: var(--primary-color) !important;
+}
+#app .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
+  color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+#app .navbar {
+  height: 6.5rem !important;
+  margin-bottom: 1rem !important;
+}
+
+#app footer {
+  background-color: var(--footer-color) !important;
+  color: var(--text-color-secondary) !important;
+}
