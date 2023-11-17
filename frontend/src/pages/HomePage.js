@@ -10,11 +10,12 @@ function HomePage() {
                     This is a simple Trello clone. Please use the nav at the top to navigate.
                 </p>
                 <div className="text-start">
-                    <p>Remember when exploring the site:</p>
+                    <p>This project was created as a collaborative effort for the Software Engineering Course</p>
                     <ul>
-                        <li>Ensure the backend Spring Boot project is running on port 8080</li>
-                        <li>Ensure you are connected to the Dal VPN</li>
-                        <li>Enjoy!</li>
+                        <li>Tech stack involves Spring Boot and ReactJS</li>
+                        <li>Developed by Trent, Songbo, Joyce, Mingxuan, Himel</li>
+                        <li>Completed on 07/2022</li>
+                        <li>Revived 09/2023</li>
                     </ul>
                 </div>
             </div>

@@ -7,6 +7,7 @@ function RegisterForm(props){
     const usernameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
+    const confirmPasswordRef = useRef();
     const answerRef = useRef();
 
     function submitRegisterForm(event){
@@ -14,7 +15,13 @@ function RegisterForm(props){
         
         const form = event.currentTarget;
         const password = passwordRef.current.value;
+        const confirmPassword = confirmPasswordRef.current.value
         console.log(password);
+
+        if (password != confirmPassword) {
+            alert("Passwords do not match!");
+            return
+        }
 
         if(password.length < 8){
             alert("Password must be at least 8 characters long");
@@ -57,9 +64,10 @@ function RegisterForm(props){
     }
 
     return(
+        
         <Card>
             <Card.Body>
-                <p>Register your account here. Please ensure all fields are filled, your password is at least 8 characters long and contains at least 1 uppercase, 1 lowercase, 1 number and 1 special character.</p>
+                <p>Register your account here. Please ensure all fields are completed, your password is at least 8 characters long and contains at least 1 uppercase, 1 lowercase, 1 number and 1 special character.</p>
 
                 <Form onSubmit={submitRegisterForm}>
                     <Form.Group controlId="formFirstName" as={Row}>
@@ -96,11 +104,19 @@ function RegisterForm(props){
                             <Form.Control type="password" placeholder="Enter password" ref={passwordRef} required min={8}/>
                         </Col>
                     </Form.Group>
+
+                    <Form.Group controlId="formConfirmPassword" as={Row}>
+                        <Form.Label column sm={3}>Confirm Password</Form.Label>
+                        <Col sm={9}>
+                            <Form.Control type="password" placeholder="Retype your password" ref={confirmPasswordRef} required min={8}/>
+                        </Col>
+                    </Form.Group>
+                    
                     
                     <Form.Group controlId="formAnswer" className="mt-3" as={Row}>
                         <Form.Label column sm={5}>Security Question: What was the name of your first pet?</Form.Label>
                         <Col sm={7}>
-                            <Form.Control type="text" placeholder="Name of first pet" ref={answerRef} required/>
+                            <Form.Control type="text" placeholder="Name of your first pet" ref={answerRef} required/>
                         </Col>
                     </Form.Group>
 

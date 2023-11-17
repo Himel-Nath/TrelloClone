@@ -33,7 +33,6 @@ function Login() {
 
     return (
         <Container>
-            <h1>Login</h1>
             <LoginForm login = {loginUserHandler} />
         </Container>
     );
