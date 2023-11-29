@@ -1,4 +1,4 @@
-import {useRef} from "react";
+import React, {useState} from "react";
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -7,19 +7,18 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link } from "react-router-dom";
 
 const theme = createTheme()
 
 function LoginForm(props) {
 
-    const emailRef = useRef();
-    const passwordRef = useRef();
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
     function submitLoginForm(event){
 
         event.preventDefault();
-        const email = emailRef.current.value;
-        const password = passwordRef.current.value;
         const user = {email, password}
         //console.log(user);
         props.login(user);
@@ -52,7 +51,8 @@ function LoginForm(props) {
                                 name="email"
                                 autoComplete="email"
                                 placeholder="Enter email"
-                                ref={emailRef}
+                                value={email}
+                                onChange={(e)=> setEmail(e.target.value)}
                                 />
                             </Grid>
 
@@ -65,7 +65,8 @@ function LoginForm(props) {
                                 name="password"
                                 autoComplete="password"
                                 placeholder="Enter password"
-                                ref={passwordRef}
+                                value={password}
+                                onChange={(e)=>setPassword(e.target.value)}
                                 />
                             </Grid>
                             
@@ -77,7 +78,9 @@ function LoginForm(props) {
                                 Login
                             </Button>
 
-                            <Button variant="secondary" sx={{ mt: 3, mb: 2 }} href="/forgotPassword">Forgot password</Button>
+                            <Link to="/forgotPassword">
+                                <Button variant="secondary" sx={{ mt: 3, mb: 2 }}>Forgot password</Button>
+                            </Link>
                         </Grid>
                     </Box>
                 </Box>
