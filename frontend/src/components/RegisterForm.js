@@ -1,63 +1,63 @@
-import { useRef } from "react";
+import React, {useState} from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 
 function RegisterForm(props){
-    const fNameRef = useRef();
-    const lNameRef = useRef();
-    const usernameRef = useRef();
-    const emailRef = useRef();
-    const passwordRef = useRef();
-    const confirmPasswordRef = useRef();
-    const answerRef = useRef();
+
+    const [fName, setFName] = useState("")
+    const [lName, setLName] = useState("")
+    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
+    const [answer, setAnswer] = useState("")
+    const [formErrors, setFormErrors] = useState([]);
+
+
+    function validatePassword(password) {
+        const errors = [];
+    
+        if (password.length < 8) {
+            errors.push("Password must be at least 8 characters long");
+        }
+    
+        if (!/[a-z]/.test(password)) {
+            errors.push("Password must contain at least one lowercase letter");
+        }
+    
+        if (!/[A-Z]/.test(password)) {
+            errors.push("Password must contain at least one uppercase letter");
+        }
+    
+        if (!/\d/.test(password)) {
+            errors.push("Password must contain at least one number");
+        }
+    
+        if (!/[^a-zA-Z0-9]/.test(password)) {
+            errors.push("Password must contain at least one special character");
+        }
+    
+        return errors;
+    }
+    
 
     function submitRegisterForm(event){
         event.preventDefault();
+
+        const passwordErrors = validatePassword(password)
+        console.log(passwordErrors)
+        const errors = [...passwordErrors]
+
+        if (password !== confirmPassword) {
+            errors.push("Passwords do not match")
+        }
+        if (errors.length > 0) {
+            setFormErrors(errors);            
+            return;
+        }
+
+        setFormErrors([]);
         
-        const form = event.currentTarget;
-        const password = passwordRef.current.value;
-        const confirmPassword = confirmPasswordRef.current.value
-        console.log(password);
-
-        if (password != confirmPassword) {
-            alert("Passwords do not match!");
-            return
-        }
-
-        if(password.length < 8){
-            alert("Password must be at least 8 characters long");
-            return;
-        }
-
-        if (password.search(/[a-z]/i) < 0) {
-            alert("Password must contain at least one lowercase letter");
-            return;
-        }
-
-        if (password.search(/[A-Z]/i) < 0) {
-            alert("Password must contain at least one uppercase letter");
-            return;
-        }
-
-        if (password.search(/[0-9]/i) < 0) {
-            alert("Password must contain at least one number");
-            return;
-        }
-
-        if (password.search(/[^a-zA-Z0-9]/i) < 0) {
-            alert("Password must contain at least one special character");
-            return;
-        }
-
-        if (form.checkValidity() === false) {
-            alert("Please fill out all fields and ensure password is at least 8 characters long and contains at least one upper case letter, one lower case letter, one number, and one special character");
-            return;
-        }
-        const firstName =fNameRef.current.value;
-        const lastName =lNameRef.current.value;
-        const username =usernameRef.current.value;
-        const email =emailRef.current.value;
-        const securityAnswer = answerRef.current.value;
-        const user = {firstName,lastName,username,email,password,securityAnswer}
+        const user = {firstName: fName,lastName: lName,username,email,password,securityAnswer:answer}
         console.log(user);
         props.registerUser(user);
 
@@ -73,42 +73,42 @@ function RegisterForm(props){
                     <Form.Group controlId="formFirstName" as={Row}>
                         <Form.Label column sm={3}>First Name</Form.Label>
                         <Col sm={9}>
-                            <Form.Control type="text" placeholder="Enter first name" ref={fNameRef} required/>
+                            <Form.Control type="text" placeholder="Enter first name" value={fName} onChange={(e)=>setFName(e.target.value)} required/>
                         </Col>
                     </Form.Group>
 
                     <Form.Group controlId="formLastName" as={Row}>
                         <Form.Label column sm={3}>Last Name</Form.Label>
                         <Col sm={9}>
-                            <Form.Control type="text" placeholder="Enter last name" ref={lNameRef} required/>
+                            <Form.Control type="text" placeholder="Enter last name" value={lName} onChange={(e)=>setLName(e.target.value)} required/>
                         </Col>
                     </Form.Group>
 
                     <Form.Group controlId="formUsername" as={Row}>
                         <Form.Label column sm={3}>Username</Form.Label>
                         <Col sm={9}>
-                            <Form.Control type="text" placeholder="Enter username" ref={usernameRef} required/>
+                            <Form.Control type="text" placeholder="Enter username" value={username} onChange={(e)=>setUsername(e.target.value)} required/>
                         </Col>
                     </Form.Group>
 
                     <Form.Group controlId="formEmail" as={Row}>
                         <Form.Label column sm={3}>Email</Form.Label>
                         <Col sm={9}>
-                            <Form.Control type="email" placeholder="Enter email" ref={emailRef} required/>
+                            <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>setEmail(e.target.value)} required/>
                         </Col>
                     </Form.Group>
 
                     <Form.Group controlId="formPassword" as={Row}>
                         <Form.Label column sm={3}>Password</Form.Label>
                         <Col sm={9}>
-                            <Form.Control type="password" placeholder="Enter password" ref={passwordRef} required min={8}/>
+                            <Form.Control type="password" placeholder="Enter password" value={password} onChange={(e)=>setPassword(e.target.value)} required min={8}/>
                         </Col>
                     </Form.Group>
 
                     <Form.Group controlId="formConfirmPassword" as={Row}>
                         <Form.Label column sm={3}>Confirm Password</Form.Label>
                         <Col sm={9}>
-                            <Form.Control type="password" placeholder="Retype your password" ref={confirmPasswordRef} required min={8}/>
+                            <Form.Control type="password" placeholder="Retype your password" value={confirmPassword} onChange={(e)=>setConfirmPassword(e.target.value)} required min={8}/>
                         </Col>
                     </Form.Group>
                     
@@ -116,10 +116,19 @@ function RegisterForm(props){
                     <Form.Group controlId="formAnswer" className="mt-3" as={Row}>
                         <Form.Label column sm={5}>Security Question: What was the name of your first pet?</Form.Label>
                         <Col sm={7}>
-                            <Form.Control type="text" placeholder="Name of your first pet" ref={answerRef} required/>
+                            <Form.Control type="text" placeholder="Name of your first pet" value={answer} onChange={(e)=>setAnswer(e.target.value)} required/>
                         </Col>
                     </Form.Group>
 
+                    {formErrors.length > 0 && (
+                        <div className="alert alert-danger mt-3">
+                            <ul>
+                                {formErrors.map((error, index) => (
+                                    <li key={index}>{error}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                     <Button type="submit" className="w-50 mt-3">Register</Button>
                 </Form>
             </Card.Body>
