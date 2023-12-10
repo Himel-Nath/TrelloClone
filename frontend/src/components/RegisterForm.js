@@ -1,5 +1,7 @@
 import React, {useState} from "react";
-import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { Button, Card, Col, Form, InputGroup, Row } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 function RegisterForm(props){
 
@@ -11,6 +13,7 @@ function RegisterForm(props){
     const [confirmPassword, setConfirmPassword] = useState("")
     const [answer, setAnswer] = useState("")
     const [formErrors, setFormErrors] = useState([]);
+    const [showPassword, setShowPassword] = useState(false)
 
 
     function validatePassword(password) {
@@ -38,7 +41,8 @@ function RegisterForm(props){
     
         return errors;
     }
-    
+
+    const togglePassword = () => setShowPassword(!showPassword)
 
     function submitRegisterForm(event){
         event.preventDefault();
@@ -101,7 +105,21 @@ function RegisterForm(props){
                     <Form.Group controlId="formPassword" as={Row}>
                         <Form.Label column sm={3}>Password</Form.Label>
                         <Col sm={9}>
-                            <Form.Control type="password" placeholder="Enter password" value={password} onChange={(e)=>setPassword(e.target.value)} required min={8}/>
+                            <InputGroup>
+                                <Form.Control 
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="Enter password"
+                                    value={password}
+                                    onChange={(e)=>setPassword(e.target.value)}
+                                    required
+                                />
+                                <InputGroup.Text>
+                                    <FontAwesomeIcon
+                                        icon={showPassword ? faEye : faEyeSlash}
+                                        onClick={togglePassword}
+                                    />   
+                                </InputGroup.Text>
+                            </InputGroup>
                         </Col>
                     </Form.Group>
 
