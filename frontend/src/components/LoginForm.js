@@ -60,6 +60,7 @@ function LoginForm(props) {
                                 <TextField
                                 required
                                 fullWidth
+                                type="password"
                                 id="password"
                                 label="Password"
                                 name="password"
@@ -72,7 +73,7 @@ function LoginForm(props) {
                             
                             
                             <Button
-                            variant="primary"
+                            variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                             type="submit" onClick={submitLoginForm}>
                                 Login

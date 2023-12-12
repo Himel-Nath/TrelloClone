@@ -1,7 +1,18 @@
-import React, {useState} from "react";
-import { Button, Card, Col, Form, InputGroup, Row } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import {useState} from 'react';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { InputAdornment, IconButton } from "@material-ui/core";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Tooltip from '@mui/material/Tooltip';
+
+const theme = createTheme()
 
 function RegisterForm(props){
 
@@ -42,13 +53,13 @@ function RegisterForm(props){
         return errors;
     }
 
-    const togglePassword = () => setShowPassword(!showPassword)
+    const handleClickShowPassword = () => setShowPassword(!showPassword)
+    const handleMouseDownPassword = () => setShowPassword(!showPassword)
 
     function submitRegisterForm(event){
         event.preventDefault();
 
         const passwordErrors = validatePassword(password)
-        console.log(passwordErrors)
         const errors = [...passwordErrors]
 
         if (password !== confirmPassword) {
@@ -68,90 +79,166 @@ function RegisterForm(props){
     }
 
     return(
-        
-        <Card>
-            <Card.Body>
-                <p>Register your account here. Please ensure all fields are completed, your password is at least 8 characters long and contains at least 1 uppercase, 1 lowercase, 1 number and 1 special character.</p>
-
-                <Form onSubmit={submitRegisterForm}>
-                    <Form.Group controlId="formFirstName" as={Row}>
-                        <Form.Label column sm={3}>First Name</Form.Label>
-                        <Col sm={9}>
-                            <Form.Control type="text" placeholder="Enter first name" value={fName} onChange={(e)=>setFName(e.target.value)} required/>
-                        </Col>
-                    </Form.Group>
-
-                    <Form.Group controlId="formLastName" as={Row}>
-                        <Form.Label column sm={3}>Last Name</Form.Label>
-                        <Col sm={9}>
-                            <Form.Control type="text" placeholder="Enter last name" value={lName} onChange={(e)=>setLName(e.target.value)} required/>
-                        </Col>
-                    </Form.Group>
-
-                    <Form.Group controlId="formUsername" as={Row}>
-                        <Form.Label column sm={3}>Username</Form.Label>
-                        <Col sm={9}>
-                            <Form.Control type="text" placeholder="Enter username" value={username} onChange={(e)=>setUsername(e.target.value)} required/>
-                        </Col>
-                    </Form.Group>
-
-                    <Form.Group controlId="formEmail" as={Row}>
-                        <Form.Label column sm={3}>Email</Form.Label>
-                        <Col sm={9}>
-                            <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>setEmail(e.target.value)} required/>
-                        </Col>
-                    </Form.Group>
-
-                    <Form.Group controlId="formPassword" as={Row}>
-                        <Form.Label column sm={3}>Password</Form.Label>
-                        <Col sm={9}>
-                            <InputGroup>
-                                <Form.Control 
-                                    type={showPassword ? "text" : "password"}
-                                    placeholder="Enter password"
-                                    value={password}
-                                    onChange={(e)=>setPassword(e.target.value)}
-                                    required
+        <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Typography component="h1" variant="h5">
+                        Register 
+                    </Typography>
+                    <Box component="form" onSubmit={submitRegisterForm} sx={{ mt: 3 }}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <TextField
+                                required
+                                fullWidth
+                                id="formFirstName"
+                                label="First Name"
+                                name="fName"
+                                autoComplete="name"
+                                placeholder="Enter first name"
+                                value={fName}
+                                onChange={(e)=> setFName(e.target.value)}
                                 />
-                                <InputGroup.Text>
-                                    <FontAwesomeIcon
-                                        icon={showPassword ? faEye : faEyeSlash}
-                                        onClick={togglePassword}
-                                    />   
-                                </InputGroup.Text>
-                            </InputGroup>
-                        </Col>
-                    </Form.Group>
+                            </Grid>
 
-                    <Form.Group controlId="formConfirmPassword" as={Row}>
-                        <Form.Label column sm={3}>Confirm Password</Form.Label>
-                        <Col sm={9}>
-                            <Form.Control type="password" placeholder="Retype your password" value={confirmPassword} onChange={(e)=>setConfirmPassword(e.target.value)} required min={8}/>
-                        </Col>
-                    </Form.Group>
-                    
-                    
-                    <Form.Group controlId="formAnswer" className="mt-3" as={Row}>
-                        <Form.Label column sm={5}>Security Question: What was the name of your first pet?</Form.Label>
-                        <Col sm={7}>
-                            <Form.Control type="text" placeholder="Name of your first pet" value={answer} onChange={(e)=>setAnswer(e.target.value)} required/>
-                        </Col>
-                    </Form.Group>
+                            <Grid item xs={12}>
+                                <TextField
+                                required
+                                fullWidth
+                                id="formLastName"
+                                label="Last Name"
+                                name="lName"
+                                autoComplete="family-name"
+                                placeholder="Enter last name"
+                                value={lName}
+                                onChange={(e)=> setLName(e.target.value)}
+                                />
+                            </Grid>
 
-                    {formErrors.length > 0 && (
-                        <div className="alert alert-danger mt-3">
-                            <ul>
-                                {formErrors.map((error, index) => (
-                                    <li key={index}>{error}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
-                    <Button type="submit" className="w-50 mt-3">Register</Button>
-                </Form>
-            </Card.Body>
-        </Card>
+                            <Grid item xs={12}>
+                                <TextField
+                                required
+                                fullWidth
+                                id="formUsername"
+                                label="Username"
+                                name="username"
+                                autoComplete="username"
+                                placeholder="Enter username"
+                                value={username}
+                                onChange={(e)=> setUsername(e.target.value)}
+                                />
+                            </Grid>
 
+                            <Grid item xs={12}>
+                                <TextField
+                                required
+                                fullWidth
+                                id="formEmail"
+                                label="Email"
+                                name="email"
+                                autoComplete="email"
+                                placeholder="Enter email"
+                                value={email}
+                                onChange={(e)=> setEmail(e.target.value)}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Tooltip 
+                                    title={
+                                        formErrors.length>0 ? (
+                                            <ul style={{margin: 0}}>
+                                                {formErrors.map((error, index) => (
+                                                    <li key={index}>{error}</li>
+                                                ))}
+                                            </ul>
+                                        ):('')
+                                    }
+                                        arrow placement="right"
+                                >
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="formPassword"
+                                        label="Password"
+                                        name="password"
+                                        type={showPassword ? "text" : "password"}
+                                        placeholder="Enter password"
+                                        value={password}
+                                        onChange={(e)=>{
+                                            setFormErrors(validatePassword(e.target.value))
+                                            setPassword(e.target.value)
+                                        }}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                    aria-label={showPassword ? "Hide password" : "Show Password"}
+                                                    onClick = {handleClickShowPassword}
+                                                    onMouseDown = {handleMouseDownPassword}
+                                                    >
+                                                        {showPassword ? <Visibility/> : <VisibilityOff/>}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            )
+                                        }}
+                                        error={formErrors.length > 0}
+                                    />
+                                </Tooltip>
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <TextField
+                                 required
+                                 fullWidth
+                                 id="formConfirmPassword"
+                                 label="Confirm Password"
+                                 name="confirmPassword"
+                                 type="password"
+                                 placeholder="Retype password"
+                                 value={confirmPassword}
+                                 onChange={(e)=>setConfirmPassword(e.target.value)}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <TextField
+                                required
+                                fullWidth
+                                id="formAnswer"
+                                label="Security Question"
+                                name="answer"
+                                placeholder="Enter the name of your first pet"
+                                value={answer}
+                                onChange={(e)=> setAnswer(e.target.value)}
+                                />
+                            </Grid>
+                        
+
+                            <Grid item xs={12}>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    sx={{ mt: 3, mb: 2 }}
+                                >
+                                    Register
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Box>
+            </Container>
+        </ThemeProvider>
     );
 }
 

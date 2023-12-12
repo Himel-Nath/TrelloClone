@@ -163,7 +163,7 @@ function ForgotPassword() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/Login" variant="body2">
-                  Rember your password again? This way sir→
+                  Remember your password again?
                 </Link>                
               </Grid>
             </Grid>
