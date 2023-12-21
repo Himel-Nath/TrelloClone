@@ -71,17 +71,22 @@ function LoginForm(props) {
                                 />
                             </Grid>
                             
-                            
-                            <Button
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                            type="submit" onClick={submitLoginForm}>
-                                Login
-                            </Button>
+                            <Grid item xs={12}>
+                                <Button
+                                fullWidth
+                                variant="contained"
+                                type="submit" onClick={submitLoginForm}>
+                                    Login
+                                </Button>
+                            </Grid>
 
-                            <Link to="/forgotPassword">
-                                <Button variant="secondary" sx={{ mt: 3, mb: 2 }}>Forgot password</Button>
-                            </Link>
+                            <Grid container justifyContent="flex-end">
+                                <Grid item>
+                                    <Link to="/forgotPassword" variant="body2">
+                                        <Button sx={{ mt: 2}}>Forgot password</Button>
+                                    </Link>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Box>
                 </Box>
