@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
+import { Link } from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -51,7 +51,7 @@ function ForgotPassword() {
             console.log(data.securityAnswer);
             console.log(inputData.get("SecurityAnswer"));
 
-            temp1 = data.securityAnswer==inputData.get("SecurityAnswer")
+            temp1 = data.securityAnswer===inputData.get("SecurityAnswer")
             console.log("temp1 is : "+temp1);
             setSecAnsStatus(temp1);
 
@@ -162,9 +162,9 @@ function ForgotPassword() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/Login" variant="body2">
-                  Remember your password again?
-                </Link>                
+                  <Link to="/login" variant="body2">
+                      <Button sx={{fontSize: 'small'}}>Remember your password again?</Button>
+                  </Link>
               </Grid>
             </Grid>
             <Grid container justifyContent="flex-end">

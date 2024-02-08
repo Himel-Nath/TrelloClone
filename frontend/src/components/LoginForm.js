@@ -83,7 +83,7 @@ function LoginForm(props) {
                             <Grid container justifyContent="flex-end">
                                 <Grid item>
                                     <Link to="/forgotPassword" variant="body2">
-                                        <Button sx={{ mt: 2}}>Forgot password</Button>
+                                        <Button sx={{ mt: 2, fontSize: 'small'}}>Forgot password</Button>
                                     </Link>
                                 </Grid>
                             </Grid>
