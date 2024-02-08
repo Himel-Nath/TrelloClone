@@ -11,8 +11,19 @@ import { InputAdornment, IconButton } from "@material-ui/core";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Tooltip from '@mui/material/Tooltip';
+import { withStyles } from '@material-ui/core';
 
 const theme = createTheme()
+
+const StyledButton = withStyles({
+    root: {
+      backgroundColor: '#1976d2',
+      color: '#fff',
+      '&:hover': {
+        backgroundColor: '#1864c4',
+        color: '#fff',
+    },
+  }})(Button);
 
 function RegisterForm(props){
 
@@ -224,15 +235,14 @@ function RegisterForm(props){
                         
 
                             <Grid item xs={12}>
-                                <Button
+                                <StyledButton
                                     type="submit"
                                     fullWidth
                                     variant="contained"
-                                    color="primary"
                                     sx={{ mt: 3, mb: 2 }}
                                 >
                                     Register
-                                </Button>
+                                </StyledButton>
                             </Grid>
                         </Grid>
                     </Box>
