@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public interface UserService {
-    public User login(String email, String password);
+public interface UserService {  // interface is a contract for classes to implement
+    public User login(String email, String password); // user authentication
 
     public User register(User userModel);
 
-    public Set<Workspace> getWorkspaces(int id);
+    public Set<Workspace> getWorkspaces(int id);    // get workspace based on user id
 }

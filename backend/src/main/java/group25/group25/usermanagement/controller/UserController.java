@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Set;
 
-@RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@RestController // for APIs
+@CrossOrigin(origins = "http://localhost:3000") // requests from this origin
 public class UserController {
     //TODO: User repository should be dealt with on service layer
     @Autowired
@@ -19,12 +19,12 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "getusers", method = RequestMethod.GET)
+    @RequestMapping(value = "getusers", method = RequestMethod.GET) // HTTP Request of GET, "getusers" is the endpoint
     public List<User> getAllUsers() {
         return userRepository.findAll();
-    }
+    }   // get all users from db
 
-    @RequestMapping(value = "getUser/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "getUser/{id}", method = RequestMethod.GET) // pathvariable is the parameters of the endpoint
     public User getUserById(@PathVariable("id") int id) {
         return userRepository.findById(id).orElse(null);
     }
@@ -34,7 +34,7 @@ public class UserController {
         return userRepository.findByEmail(email);
     }
 
-    @PostMapping(value = "login", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "login", consumes = "application/json", produces = "application/json") // consumes is input, produces is output (User object)
     public User login(@RequestBody User user){
         return  userService.login(user.getEmail(), user.getPassword());
     }

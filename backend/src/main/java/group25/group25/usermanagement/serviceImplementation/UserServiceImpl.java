@@ -11,21 +11,22 @@ import java.util.Set;
 @Component
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userRepository;  // automatically inject an instance of userRepo
 
     public User login(String email, String password) {
 
-        if(userRepository.findUserByEmail(email).getPassword().equals(password)) return userRepository.findUserByEmail(email);
-
+        // first find the user by email -> get the password of that user -> check if password matches
+        if(userRepository.findUserByEmail(email).getPassword().equals(password)) {
+            return userRepository.findUserByEmail(email);
+        }
         return null;
     }
 
     public User register(User userModel) {
-
-        return userRepository.save(userModel);
+        return userRepository.save(userModel); // saves user to the db
     }
 
     public Set<Workspace> getWorkspaces(int id) {
-        return userRepository.getWorkspaces(id);
+        return userRepository.getWorkspaces(id);    // get from db
     }
 }

@@ -9,15 +9,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users") // create new table for users
 public class User {
-    @ManyToMany(mappedBy = "assignedUsers")
+    @ManyToMany(mappedBy = "assignedUsers") // multiple users can have multiple workspaces
     @JsonIgnore
     private Set<Workspace> workspaces = new HashSet<>();
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // primary key is automatically generated
+    @Column(name = "user_id")   // name of the field in the table
     private int id;
 
     @Column(name = "user_email")
@@ -36,20 +36,20 @@ public class User {
     private String username;
 
     @Column(name = "security_answer")
-    private String answer;
+    private String securityAnswer;
 
-    @OneToMany
-    @JoinColumn(name = "card_user")
+    @OneToMany(fetch = FetchType.LAZY)  // one user can have many tasks // LAZY = fetch when needed, EAGER = fetch immediately
+    @JoinColumn(name = "card_user") // same column in 2 tables
     @JsonIgnore
     private Set<Task> tasks;
 
-    public User(String email, String firstName, String lastName, String password, String username, String answer) {
+    public User(String email, String firstName, String lastName, String password, String username, String securityAnswer) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.username = username;
-        this.answer = answer;
+        this.securityAnswer = securityAnswer;
     }
 
     public User() {
@@ -108,11 +108,11 @@ public class User {
         return workspaces;
     }
     public String getSecurityAnswer() {
-        return answer;
+        return securityAnswer;
     }
 
     public void setSecurityAnswer(String securityAnswer) {
-        this.answer = securityAnswer;
+        this.securityAnswer = securityAnswer;
     }
 
     public void setWorkspaces(Set<Workspace> workspaces) {
