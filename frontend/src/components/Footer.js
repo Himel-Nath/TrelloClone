@@ -6,7 +6,7 @@ function Footer() {
             <Container className="py-4">
                 <div className="row">
                     <div className="col-md-6">
-                        <p>&copy; 2022 Trello Clone</p>
+                        <p>&copy; 2024 Trello Clone</p>
                     </div>
                 </div>
             </Container>

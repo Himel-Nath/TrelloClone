@@ -18,11 +18,20 @@ function LoginForm(props) {
     const [error, setError] = useState("")
 
     function submitLoginForm(event){
-
         event.preventDefault();
         const user = {email, password}
-        //console.log(user);
         props.login(user, setError);
+    }
+
+    function handleInputChanged(event){
+        const {name, value} = event.target
+        setError("")
+        if (name === "email") {
+            setEmail(value)
+        }
+        else if (name === "password") {
+            setPassword(value)
+        }
     }
 
 
@@ -43,15 +52,6 @@ function LoginForm(props) {
                     </Typography>
                     <Box component="form" onSubmit={submitLoginForm} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
-                            
-                            {error && (
-                                <Grid item xs={12}>
-                                    <Typography variant="body1" color="error">
-                                        {error}
-                                    </Typography>
-                                </Grid>
-                            )}
-
                             <Grid item xs={12}>
                                 <TextField
                                 error={error !== ""}
@@ -63,7 +63,7 @@ function LoginForm(props) {
                                 autoComplete="email"
                                 placeholder="Enter email"
                                 value={email}
-                                onChange={(e)=> setEmail(e.target.value)}
+                                onChange={handleInputChanged}
                                 />
                             </Grid>
 
@@ -79,15 +79,24 @@ function LoginForm(props) {
                                 autoComplete="password"
                                 placeholder="Enter password"
                                 value={password}
-                                onChange={(e)=>setPassword(e.target.value)}
+                                onChange={handleInputChanged}
                                 />
                             </Grid>
+
+                            {error && (
+                                <Grid item xs={12}>
+                                    <Typography variant="body1" color="error">
+                                        {error}
+                                    </Typography>
+                                </Grid>
+                            )}
                             
                             <Grid item xs={12}>
                                 <Button
-                                fullWidth
-                                variant="contained"
-                                type="submit" onClick={submitLoginForm}>
+                                    fullWidth
+                                    variant="contained"
+                                    type="submit"
+                                >
                                     Login
                                 </Button>
                             </Grid>
@@ -99,7 +108,6 @@ function LoginForm(props) {
                                     </Link>
                                 </Grid>
                             </Grid>
-
                         </Grid>
                     </Box>
                 </Box>
