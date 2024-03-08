@@ -15,13 +15,14 @@ function LoginForm(props) {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
 
     function submitLoginForm(event){
 
         event.preventDefault();
         const user = {email, password}
         //console.log(user);
-        props.login(user);
+        props.login(user, setError);
     }
 
 
@@ -42,8 +43,18 @@ function LoginForm(props) {
                     </Typography>
                     <Box component="form" onSubmit={submitLoginForm} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
+                            
+                            {error && (
+                                <Grid item xs={12}>
+                                    <Typography variant="body1" color="error">
+                                        {error}
+                                    </Typography>
+                                </Grid>
+                            )}
+
                             <Grid item xs={12}>
                                 <TextField
+                                error={error !== ""}
                                 required
                                 fullWidth
                                 id="email"
@@ -58,6 +69,7 @@ function LoginForm(props) {
 
                             <Grid item xs={12}>
                                 <TextField
+                                error={error !== ""}                                
                                 required
                                 fullWidth
                                 type="password"
@@ -87,6 +99,7 @@ function LoginForm(props) {
                                     </Link>
                                 </Grid>
                             </Grid>
+
                         </Grid>
                     </Box>
                 </Box>

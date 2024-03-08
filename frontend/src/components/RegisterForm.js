@@ -225,7 +225,7 @@ function RegisterForm(props){
                                 required
                                 fullWidth
                                 id="formAnswer"
-                                label="Security Question"
+                                label="Security Answer"
                                 name="answer"
                                 placeholder="Enter the name of your first pet"
                                 value={answer}

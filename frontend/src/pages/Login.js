@@ -7,7 +7,7 @@ function Login() {
 
     const navigate = useNavigate();
 
-    function loginUserHandler(user) {
+    function loginUserHandler(user, setError) {
         axios.post("http://localhost:8080/login", user)
         .then((response) => {
             if (response.status === 200) {
@@ -15,8 +15,8 @@ function Login() {
 
                 const u = response.data;
 
-                if (u === null || u === undefined || u === "") {
-                    alert("Invalid email or password");
+                if (!u || u === "") {
+                    setError("Invalid email or password")
                     return;
                 }
 
