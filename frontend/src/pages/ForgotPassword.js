@@ -133,6 +133,7 @@ function ForgotPassword() {
                   label="Security Answer"
                   type="SecurityAnswer"
                   id="securityanswer"
+                  placeholder="Enter the name of your first pet"
                   autoComplete="SecurityAnswer"
 
                 />
