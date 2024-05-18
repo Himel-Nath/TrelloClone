@@ -26,6 +26,8 @@ public class UserServicesTests {
 
   @Test
   void testSaveUser() {
+
+    // when userRepo.save is used, a new User should be returned
     when(userRepository.save(any(User.class))).thenReturn(new User());
 
     User user = new User("test@dal.ca","test", "user","password","group25","cat");

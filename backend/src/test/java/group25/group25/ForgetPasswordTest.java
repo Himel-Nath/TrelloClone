@@ -11,32 +11,37 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.*;    // when, verify, any  methods
 
 @SpringBootTest
 public class ForgetPasswordTest {
 
-    @MockBean
+    @MockBean   // add a mock
     UserRepository userRepository;
 
-    @Autowired
+    @Autowired  // add an instance
     UserController controller;
 
     @Test
     void testShowUserByPassword(){
         String mail = "testPassword@test.com";
         User tempUser = new User("testPassword@test.com","testFname","testLname","testPassword","testUsername", "answer");
+
+        // when used to define behavior of mock, thenReturn says what should be returned when the method inside 'when' is called
+        // so it's saying when we use showUserByPassword, it should return the temp user we created
         when(controller.showUserByPassword(mail)).thenReturn(tempUser);
+
+        // assertEquals(expected, actual, message);
         assertEquals(tempUser, controller.showUserByPassword(mail),"wrong testShowUserByPassword");
     }
 
     @Test
     void testUpdateUserPasswordByEmail(){
-
         String newPassword = "newPassword";
         String mail = "testPassword@test.com";
         userRepository.updateUserPasswordByEmail(newPassword,mail);
+
+        // verify is used to check if the method was called on an object
         verify(userRepository).updateUserPasswordByEmail(newPassword,mail);
     }
 
