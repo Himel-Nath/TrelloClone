@@ -1,19 +1,24 @@
-import { createRef } from "react";
+import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 
 function NewWorkspaceForm(props) {
-    const title = createRef();
-    const description = createRef();
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+
+    const handleTitleChange = (e) => {
+        setTitle(e.target.value);
+    }
+
+    const handleDescriptionChange = (e) => {
+        setDescription(e.target.value);
+    }
 
     const createWorkspace = (e) => {
         e.preventDefault();
 
-        const workspaceName = title.current.value;
-        const workspaceDescription = description.current.value;
-
         const data = {
-            title: workspaceName,
-            description: workspaceDescription
+            title,
+            description,
         }
 
         props.onChange(data);
@@ -25,14 +30,14 @@ function NewWorkspaceForm(props) {
             <h1>Create New Workspace</h1>
 
             <Form onSubmit={createWorkspace}>
-                <Form.Group controlId="formWorkspaceTitle">
+                <Form.Group controlId="formWorkspaceTitle" className="mb-3">
                     <Form.Label>Title</Form.Label>
-                    <Form.Control type="text" placeholder="Enter title" ref={title}/>
+                    <Form.Control type="text" placeholder="Enter title" value={title} onChange={handleTitleChange}/>
                 </Form.Group>
 
-                <Form.Group controlId="formWorkspaceDescription">
-                    <Form.Label>Description</Form.Label>
-                    <Form.Control as="textarea" rows={3} placeholder="Enter description" ref={description}/>
+                <Form.Group controlId="formWorkspaceDescription" className="mb-3">
+                    <Form.Label >Description</Form.Label>
+                    <Form.Control as="textarea" rows={3} placeholder="Enter description" value={description} onChange={handleDescriptionChange}/>
                 </Form.Group>
 
                 <Button variant="primary" type="submit">

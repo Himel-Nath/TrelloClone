@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Card, Container, ListGroup } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import {useParams } from "react-router-dom";
 import AssignUserForm from "./AssignUserForm";
 
 function AssignedUsers() {
@@ -10,7 +10,7 @@ function AssignedUsers() {
     const [users, setUsers] = useState([]);
 
     function getAssignedUsers() {
-        axios.get("http://localhost:8080/getAssignedUsers/" + id)
+        axios.get(`http://localhost:8080/getAssignedUsers/${id}`)
             .then((response) => {
                 setUsers(response.data);
             }
@@ -18,7 +18,7 @@ function AssignedUsers() {
     }
 
     function assignUser(body) {
-        axios.put("http://localhost:8080/assignWorkspaceUser/", body)
+        axios.put(`http://localhost:8080/assignWorkspaceUser/${body}`)
             .then(() => getAssignedUsers());
     }
 
@@ -37,7 +37,6 @@ function AssignedUsers() {
                     }
                     )}
                 </ListGroup>
-
                 <AssignUserForm onChange={assignUser} />
                 </Card.Body>
             </Card>

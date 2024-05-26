@@ -1,5 +1,5 @@
 import axios from "axios";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useCallback} from "react";
 import ViewWorkspaces from "../components/workspaces/ViewWorkspaces";
 
 function Workspaces() {
@@ -7,37 +7,37 @@ function Workspaces() {
     const [workspaceData, setWorkspaceData] = useState([]);
 
     const userString = localStorage.getItem("user");
-    const user = (userString===null)? null : JSON.parse(userString);
+    const user = userString ? JSON.parse(userString) : null;
 
-    function getAllWorkspaces() {
-        axios.get("http://localhost:8080/getWorkspaces/" + user.id)
+    const getAllWorkspaces = useCallback(() => {
+        if (user === null) {
+            setWorkspaceData([]);
+            return;
+        }
+
+        axios.get(`http://localhost:8080/getWorkspaces/${user.id}`)
             .then(response => {
-                console.log("Getting something");
-
-
-                if (user === null || user === undefined || user === "") {
-                    setWorkspaceData([]);
-                    return;
-                }
-
                 const workspaces = response.data;
 
                 // Sort workspaces by id
-                workspaces.sort((a, b) => {
-                    return a.id - b.id;
-                });
+                workspaces.sort((a, b) => a.id - b.id);
 
                 setWorkspaceData(workspaces);
+            })
+            .catch(error => {
+                console.error("Error fetching workspaces ", error);
+                setWorkspaceData([]);
             });
-    }
+    }, [user]);
 
     useEffect(() => {
-        if (user !== null)
+        if (user !== null) {
             getAllWorkspaces();
-    }, []);
+        }
+    }, [user, getAllWorkspaces]);
 
     if (workspaceData === null || workspaceData.length === 0)
-        return <p>No workspaces to show. If you are logged in, you can create a new workspace using the create workspace page found in the top bar.</p>;
+        return <p>No workspaces to show. You can create a new workspace using the create workspace button in the nav bar.</p>;
 
     return (
         <div>

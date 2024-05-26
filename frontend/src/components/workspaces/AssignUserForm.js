@@ -1,17 +1,16 @@
-import { createRef } from "react";
+import { useState } from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 function AssignUserForm(props) {
     const {id} = useParams();
-    const email = createRef();
+    const [email, setEmail] = useState('');
 
     const assignUser = (e) => {
         e.preventDefault();
 
-        const userEmail = email.current.value;
         const data = {
-            userEmail: userEmail,
+            userEmail: email,
             workspaceId: id
         }
 
@@ -23,9 +22,9 @@ function AssignUserForm(props) {
             <Card.Body>
                 <Form onSubmit={assignUser}>
                     <Form.Group as={Row} controlId="formAssignEmail">
-                        <Form.Label column sm={2}>Assign new user by email</Form.Label>
+                        <Form.Label column sm={2}>Assign new user</Form.Label>
                         <Col sm={7}>
-                            <Form.Control type="email" placeholder="Enter user email" ref={email} />
+                            <Form.Control type="email" placeholder="Enter user email" value={email} onChange={(e) => setEmail(e.target.value)} />
                         </Col>
                         <Col sm={2}>
                             <Button variant="primary" type="submit">

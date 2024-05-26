@@ -6,36 +6,33 @@ function NewWorkspace() {
     // navigate object for modifying browser history/redirect
     const navigate = useNavigate();
     
-    function newWorkspaceHandler(workspace) {
-        if (localStorage.getItem("user") === null) {
+    async function newWorkspaceHandler(workspace) {
+        const userData = localStorage.getItem("user");
+        if (!userData) {
             alert("You must be logged in to create a workspace");
             return;
         }
 
+        const user = JSON.parse(userData)
+
         // User is logged in
-        axios.post("http://localhost:8080/addWorkspace", workspace)
-            .then((response) => {
-                console.log(response);
-                const userString = localStorage.getItem("user");
-                if (userString === null)
-                {
-                    alert("User is null");
-                    alert("If you're somehow reading this something went very wrong");
-                    return;
-                }
-                const user = JSON.parse(userString);
-                const data = {
-                    userEmail: user.email,
-                    workspaceId: response.data.id.toString()
-                };
-                console.log(data);
-                return axios.put("http://localhost:8080/assignWorkspaceUser", data)
-                    .then((response) => {
-                        console.log(response);
-                        navigate("/workspaces", { replace: true });
-                    });
-            });
-            
+        try {
+            const response = await axios.post("http://localhost:8080/addWorkspace", workspace)
+            console.log(response)
+
+            const data = {
+                userEmail: user.email,
+                workspaceId: response.data.id.toString()
+            };
+            console.log(data)
+
+            const assignResponse = await axios.put("http://localhost:8080/assignWorkspaceUser", data)
+            console.log(assignResponse)
+            navigate("/workspaces", { replace: true });
+        } catch (error) {
+            console.error("Error creating or assigning workspace:", error);
+            alert("An error occurred while creating or assigning the workspace. Please try again.");
+        }   
     }
 
     return (
