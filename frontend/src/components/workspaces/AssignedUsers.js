@@ -18,7 +18,7 @@ function AssignedUsers() {
     }
 
     function assignUser(body) {
-        axios.put(`http://localhost:8080/assignWorkspaceUser/${body}`)
+        axios.put(`http://localhost:8080/assignWorkspaceUser/`, body)
             .then(() => getAssignedUsers());
     }
 
