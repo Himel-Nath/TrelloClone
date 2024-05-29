@@ -19,7 +19,10 @@ public class VerifyLoginTest {
 
     @BeforeEach
     void setUpUser(){
-        UserRepository.deleteAll();
+        // Delete any existing user with the same email address
+        if (!UserRepository.findByEmail("test@email.com").isEmpty()) {
+            UserRepository.deleteByEmail("test@email.com");
+        }
 
         User user = new User("test@email.com", "Tom", "Scott", "pass", "username","cat");
         UserRepository.save(user);
@@ -37,8 +40,6 @@ public class VerifyLoginTest {
         Assertions.assertEquals(UserServices.login("test@email.com", "pass").getPassword(),user.getPassword());
 
         Assertions.assertNull(UserServices.login("test@email.com","unpass"));
-
-
     }
 
 

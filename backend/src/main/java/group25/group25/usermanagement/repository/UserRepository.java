@@ -25,4 +25,9 @@ public interface UserRepository extends JpaRepository<User, Integer> { // entity
     @Transactional  // method modifies database state and happens within a transaction
     @Query("UPDATE User u SET u.password =?1 WHERE u.email =?2")    // update password based on email sent through second param ?2
     public void updateUserPasswordByEmail(String newPassword, String email);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM User u WHERE u.email = ?1")
+    public void deleteByEmail(String email);
 }

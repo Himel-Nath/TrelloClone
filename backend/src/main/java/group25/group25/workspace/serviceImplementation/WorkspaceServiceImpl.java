@@ -30,19 +30,21 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public boolean assignWorkspaceUser(Map<String, String> json) {
+        // get user details
         String email = json.get("userEmail");
         int workspaceId = Integer.parseInt(json.get("workspaceId"));
 
+       // find user in db
         List<User> users = userRepository.findByEmail(email);
-        if (users.size() == 0)
+        if (users.isEmpty())
             // There are no users with this email
             return false;
 
-        User user = userRepository.findByEmail(email).get(0);
+        User user = users.get(0);
 
+        // create a workspaceaccess record since the user has access to the new workspace
         UserAccessWorkspace access = new UserAccessWorkspace(user.getId(), workspaceId);
-
-        if (accessRepository.existsByUserIdAndWorkspaceId(access.getUserId(), access.getWorkspaceId())==1)
+        if (accessRepository.existsByUserIdAndWorkspaceId(access.getUserId(), access.getWorkspaceId()))
             // This user is already assigned to this workspace
             return false;
 
@@ -58,12 +60,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     @Override
     public Workspace findById(int id) {
-        Optional<Workspace> w = workspaceRepository.findById(id);
-        if (w.isPresent()) {
-            Workspace ws = w.get();
-            return ws;
-        }
+        return workspaceRepository.findById(id).orElse(null);
 
-        return null;
     }
 }

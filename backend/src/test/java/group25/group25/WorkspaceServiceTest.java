@@ -2,7 +2,6 @@ package group25.group25;
 
 import group25.group25.usermanagement.model.User;
 import group25.group25.usermanagement.repository.UserRepository;
-import group25.group25.workspace.model.UserAccessWorkspace;
 import group25.group25.workspace.model.Workspace;
 import group25.group25.workspace.repository.UserAccessWorkspaceRepository;
 import group25.group25.workspace.repository.WorkspaceRepository;
@@ -57,8 +56,8 @@ public class WorkspaceServiceTest {
 
     @Test
     void testAssignWorkspaceUser_newOrExisting() {
-        when(accessRepository.existsByUserIdAndWorkspaceId(anyInt(), anyInt())).thenReturn(0); // Empty repository
-        when(accessRepository.existsByUserIdAndWorkspaceId(0, 0)).thenReturn(1); // 0,0 exists
+        when(accessRepository.existsByUserIdAndWorkspaceId(anyInt(), anyInt())).thenReturn(false); // Empty repository
+        when(accessRepository.existsByUserIdAndWorkspaceId(0, 0)).thenReturn(true); // 0,0 exists
 
         User user1 = new User();
         User user2 = new User();

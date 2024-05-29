@@ -11,28 +11,6 @@ import java.util.Set;
 @Entity
 @Table(name = "workspaces")
 public class Workspace {
-    @ManyToMany
-    @JoinTable(
-            name = "user_access_workspace",
-            joinColumns = @JoinColumn(name = "workspace_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    @JsonIgnore
-    private Set<User> assignedUsers = new HashSet<>();
-
-    @OneToMany
-    @JoinColumn(name = "workspace_id")
-    private Set<Board> boards = new HashSet<>();
-
-    public Workspace() {
-        this.title = "New Workspace";
-        this.description = "";
-    }
-
-    public Workspace (String title, String description) {
-        this.title = title;
-        this.description = description;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,6 +22,29 @@ public class Workspace {
 
     @Column(name = "workspace_description")
     private String description;
+
+    @ManyToMany(fetch = FetchType.LAZY) // lazy when data don't need to fetch every time, improves performance
+    @JoinTable( // many users can have many workspaces
+      name = "user_access_workspace",
+      joinColumns = @JoinColumn(name = "workspace_id"),
+      inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    @JsonIgnore
+    private Set<User> assignedUsers = new HashSet<>();
+
+    @OneToMany(mappedBy = "workspace", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Board> boards = new HashSet<>();
+
+    // Constructor if title and description is not provided
+    public Workspace() {
+        this.title = "New Workspace";
+        this.description = "";
+    }
+
+    public Workspace (String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
 
     public int getId() {
         return id;
