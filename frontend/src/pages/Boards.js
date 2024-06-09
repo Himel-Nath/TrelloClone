@@ -2,10 +2,8 @@ import { useEffect } from 'react';
 import ViewBoards from '../components/boards/ViewBoards';
 
 function Boards() {
-    /* ToDo: Create state using useState hook for boards data */
-    const  [boardsData, setBoardsData] = useData([]);
+    const  [boardsData, setBoardsData] = useState([]);
     function getAllBoards() {
-        /* ToDo: Implement getAllBoards function */
         fetch('http://localhost:9000/board')
         .then(response => response.json())
         .then(boards => {
@@ -13,7 +11,6 @@ function Boards() {
         });
     };
 
-    /* ToDo: Use useEffect hook to call getAllBoards() */
     useEffect(function(){
         getAllBoards();
     }, [])

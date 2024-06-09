@@ -10,13 +10,12 @@ function NewBoard() {
 
     function newBoardHandler(board) {
         axios.post("http://localhost:8080/addBoard/", board)
-            .then(() => navigate("/workspaces/"+id, { replace: true }));
+            .then(() => navigate(`/workspaces/${id}`, { replace: true }));
     }
 
     return (
         <Container>
-            <Button href={"/workspaces/"+id}>Back to Workspace</Button>
-            <h1>New Board</h1>
+            <Button href={`/workspaces/${id}`}>Back to Workspace</Button>
             <CreateBoardForm onChange={newBoardHandler} />
         </Container>
     );

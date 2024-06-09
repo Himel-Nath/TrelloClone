@@ -11,7 +11,6 @@ import Logout from './pages/Logout';
 import Register from './pages/Register';
 import Footer from './components/Footer';
 import BoardPage from './pages/BoardPage';
-import NewListForm from './components/boards/lists/NewListForm';
 import NewListPage from './pages/NewListPage';
 import CreateTaskForm from './components/boards/lists/CreateTaskForm';
 import EditTask from './components/boards/lists/EditTask';

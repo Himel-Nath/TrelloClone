@@ -31,13 +31,11 @@ function NewWorkspaceForm(props) {
 
             <Form onSubmit={createWorkspace}>
                 <Form.Group controlId="formWorkspaceTitle" className="mb-3">
-                    <Form.Label>Title</Form.Label>
-                    <Form.Control type="text" placeholder="Enter title" value={title} onChange={handleTitleChange}/>
+                    <Form.Control type="text" placeholder="Workspace Title" value={title} onChange={handleTitleChange}/>
                 </Form.Group>
 
                 <Form.Group controlId="formWorkspaceDescription" className="mb-3">
-                    <Form.Label >Description</Form.Label>
-                    <Form.Control as="textarea" rows={3} placeholder="Enter description" value={description} onChange={handleDescriptionChange}/>
+                    <Form.Control as="textarea" rows={3} placeholder="Workspace Description" value={description} onChange={handleDescriptionChange}/>
                 </Form.Group>
 
                 <Button variant="primary" type="submit">
