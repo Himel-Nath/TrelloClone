@@ -15,10 +15,8 @@ public class Board {
     public Board() {
     }
 
-    public Board(Long boardId, String dateCreated,
-                 String description, String boardTitle) {
+    public Board(Long boardId, String dateCreated, String description, String boardTitle) {
         this.id = boardId;
-
         this.dateCreated = dateCreated;
         this.description = description;
         this.title = boardTitle;
