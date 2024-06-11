@@ -1,17 +1,19 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ViewBoards from '../components/boards/ViewBoards';
 
 function Boards() {
     const  [boardsData, setBoardsData] = useState([]);
-    function getAllBoards() {
+
+    // get board data and then add it to the board
+    const getAllBoards = () => {
         fetch('http://localhost:9000/board')
-        .then(response => response.json())
-        .then(boards => {
+            .then(response => response.json())
+            .then(boards => {
                 setBoardsData(boards);
-        });
+            });
     };
 
-    useEffect(function(){
+    useEffect(() => {
         getAllBoards();
     }, [])
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { React, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import List from "../components/boards/lists/List";
@@ -19,14 +19,17 @@ function BoardPage() {
     const [inputText, setInputText] = useState("");
     const [startDate, setStartDate] = useState(new Date());
     const [dueDateFilterMode, setDueDateFilterMode] = useState("");
+
     const inputHandler = (e) => {
         //convert input text to lower case
         var lowerCase = e.target.value.toLowerCase();
         setInputText(lowerCase);
     };
+
     const dateChangeHandler = (date) => {
         setStartDate(date);
     };
+
     const dueDateChangeHandler = (e) => {
         setDueDateFilterMode(e.target.value);
     }
@@ -38,6 +41,7 @@ function BoardPage() {
                 const board = response.data;
                 const task = [];
 
+                // retrieving lists and putting into tasks
                 for (let i = 0; i < board.lists.length; i++) {
                     const list = board.lists[i];
                     for (let j = 0; j < list.tasks.length; j++) {
@@ -47,17 +51,15 @@ function BoardPage() {
                 console.log(task);
 
                 // Sort lists by id
-                board.lists.sort((a, b) => {
-                    return a.id - b.id;
-                });
+                board.lists.sort((a, b) => a.id - b.id);
 
-                setBoard(response.data);
+                setBoard(board);
                 setLoading(false);
             }
         );
     }
 
-    // Get the board data from the backend
+    // fetch board data on component mount
     useEffect(() => {
         getBoard();
     }, []);
@@ -70,7 +72,7 @@ function BoardPage() {
         <Container>
             <Row className="my-4">
                 <Col sm={2}>
-                    <Button href={"/workspaces/"+id}>
+                    <Button href={`/workspaces/${id}`}>
                         Return to Workspace
                     </Button>
                 </Col>

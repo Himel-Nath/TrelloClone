@@ -8,6 +8,7 @@ function NewBoard() {
     const {id} = useParams();
     const navigate = useNavigate();
 
+    // add new board and then go to the workspace
     function newBoardHandler(board) {
         axios.post("http://localhost:8080/addBoard/", board)
             .then(() => navigate(`/workspaces/${id}`, { replace: true }));
