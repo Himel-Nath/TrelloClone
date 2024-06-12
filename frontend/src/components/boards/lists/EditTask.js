@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import { Button as DefaultButton, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import FormLabel from '@mui/material/FormLabel';
+import { Button } from '@mui/material';
 
 export default function EditTask() {
     // URL parameters
@@ -54,7 +55,7 @@ export default function EditTask() {
         const taskDateBody = {id: taskID, date};
         const taskListIdBody = {id: taskID, listId};
 
-        //post method here!!!!
+        //post method here
         axios.post('http://localhost:8080/updateDueDate', taskDateBody)
         .then(response => {
             // Nested axios call for updating listId
@@ -64,11 +65,11 @@ export default function EditTask() {
                 if (assigneeId.current && assigneeId.current.value) {
                     axios.post(`http://localhost:8080/assignTaskUser/${taskID}/${assigneeId.current.value}`)
                     .then(response => {
-                        navigate('/workspaces/'+id+"/"+boardId);
+                        navigate(`/workspaces/${id}/${boardId}`);
                     });
                 }
                 else {
-                    navigate('/workspaces/'+id+"/"+boardId);
+                    navigate(`/workspaces/${id}/${boardId}`);
                 }
             });
         });
@@ -86,9 +87,9 @@ export default function EditTask() {
     // When page is loaded, show the form page
     return (
         <Container>
-            <Button variant="primary" onClick={() => navigate('/workspaces/'+id+"/"+boardId)} className="m-4">
+            <DefaultButton variant="primary" onClick={() => navigate(`/workspaces/${id}/${boardId}`)} className="m-4">
                 Back to Board
-            </Button>
+            </DefaultButton>
 
             <Card>
                 <Card.Header>
@@ -124,10 +125,7 @@ export default function EditTask() {
                                         <Col>
                                             <Form.Select ref={newListId}>
                                                 {lists.map(list => (
-                                                    <option
-                                                        key={list.id}
-                                                        value={list.id}
-                                                    >
+                                                    <option key={list.id} value={list.id}>
                                                         {list.title}
                                                     </option>
                                                 ))}
@@ -146,7 +144,7 @@ export default function EditTask() {
                         </Row>
                             
 
-                        <Button variant="primary" type="submit" className="m-4 w-50">Edit Task</Button>
+                        <Button type='submit' variant='contained' color='primary' sx={{ marginTop: 2 }}>Edit Task</Button>
                     </Form>
                 </Card.Body>
             </Card>

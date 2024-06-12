@@ -1,21 +1,19 @@
-import { useRef } from "react";
-import { Button, Card, Form } from "react-bootstrap";
+import { useState } from "react";
+import { Button } from "@mui/material";
+import { Card, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 function NewListForm(props) {
-    const {id, boardId} = useParams();
-
-    const title = useRef();
-    const description = useRef();
+    const { boardId} = useParams();
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const titleValue = title.current.value;
-        const descValue = description.current.value;
-
+        
         const data = {
-            title: titleValue,
-            description: descValue,
+            title,
+            description,
             boardId: +boardId
         }
 
@@ -26,17 +24,15 @@ function NewListForm(props) {
         <Card>
             <Card.Body>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="formTitle">
-                        <Form.Label>Title</Form.Label>
-                        <Form.Control type="text" placeholder="Enter title" ref={title}/>
+                    <Form.Group controlId="formTitle" className='mb-3'>
+                        <Form.Control type="text" placeholder="List title" value={title} onChange={(e) => setTitle(e.target.value)}/>
                     </Form.Group>
 
-                    <Form.Group controlId="formDescription">
-                        <Form.Label>Description</Form.Label>
-                        <Form.Control as="textarea" rows="3" placeholder="Enter description" ref={description}/>
+                    <Form.Group controlId="formDescription" className='mb-3'>
+                        <Form.Control as="textarea" rows="3" placeholder="List description" value={description} onChange={(e) => setDescription(e.target.value)}/>
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" className="w-100 mt-4">
+                    <Button type='submit' variant='contained' color='primary' sx={{ marginTop: 2 }}>
                         Create List
                     </Button>
                 </Form>

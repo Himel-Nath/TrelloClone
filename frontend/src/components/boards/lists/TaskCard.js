@@ -7,7 +7,7 @@ function TaskCard(props) {
     return (
             <Card className="shadow-sm">
                 <Button
-                    variant="outline-dark"
+                    variant="outline-primary"
                     className="m-0 p-0"
                     title={`Edit task "${props.task.title}"`}
                     href={`/workspaces/${id}/${boardId}/${props.task.listId}/${props.task.id}/editTask`}

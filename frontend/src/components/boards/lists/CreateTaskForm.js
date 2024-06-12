@@ -1,20 +1,18 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
-import { Button, Card, Container, Form } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button } from "@mui/material";
+import { Card, Container, Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 
 function CreateTaskForm() {
     const { id, boardId, listId } = useParams();
-
     const navigate = useNavigate();
 
-    const titleRef = useRef();
-    const descriptionRef = useRef();
-    const assigneeRef = useRef();
-
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [assignee, setAssignee] = useState('')
     const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
-
-    const [users, setUsers] = useState('');
+    const [users, setUsers] = useState([]);
     const [usersLoading, setUsersLoading] = useState(true);
 
     const fetchUsers = () => {
@@ -28,18 +26,15 @@ function CreateTaskForm() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const title = titleRef.current.value;
-        const description = descriptionRef.current.value;
-
         const task = {
-            title: title,
-            description: description,
-            listId: listId,
+            title,
+            description,
+            listId,
             date: new Date(date).toISOString().slice(0, 10),
         };
 
-        if (assigneeRef.current.value) {
-            task.assigneeId = assigneeRef.current.value;
+        if (assignee) {
+            task.assigneeId = assignee;
         }
 
         axios.post(`http://localhost:8080/saveTasks`, task)
@@ -67,12 +62,12 @@ function CreateTaskForm() {
 
                         <Form.Group controlId="formBasicTitle">
                             <Form.Label>Title</Form.Label>
-                            <Form.Control type="text" placeholder="Enter title" ref={titleRef}/>
+                            <Form.Control type="text" placeholder="Enter title" value={title} onChange={(e) => setTitle(e.target.value)}/>
                         </Form.Group>
 
                         <Form.Group controlId="formBasicDescription">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control as="textarea" rows="3" placeholder="Enter description" ref={descriptionRef}/>
+                            <Form.Control as="textarea" rows="3" placeholder="Enter description" value={description} onChange={(e) => setDescription(e.target.value)}/>
                         </Form.Group>
 
                         <Form.Group controlId="formBasicDate">
@@ -82,7 +77,7 @@ function CreateTaskForm() {
 
                         <Form.Group controlId="formBasicAssignedTo">
                             <Form.Label>Assigned To</Form.Label>
-                            <Form.Control as="select" ref={assigneeRef}>
+                            <Form.Control as="select" value={assignee} onChange={(e) => setAssignee(e.target.value)}>
                                 <option value="">Select assignee</option>
                                 {users.map(list => (
                                     <option key={list.id} value={list.id}>
@@ -92,7 +87,7 @@ function CreateTaskForm() {
                             </Form.Control>
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" className="my-4 w-50">
+                        <Button type='submit' variant='contained' color='primary' sx={{ marginTop: 2 }}>
                             Create
                         </Button>
                     </Form>

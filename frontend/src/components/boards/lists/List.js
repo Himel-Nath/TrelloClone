@@ -16,9 +16,7 @@ function List(props) {
                 const tasks = response.data;
                 
                 // Sort tasks by id
-                tasks.sort((a, b) => {
-                    return a.id - b.id;
-                });
+                tasks.sort((a, b) => a.id - b.id);
 
                 setTasks(tasks);
                 setSearchFilteredTasks(tasks);
@@ -33,7 +31,7 @@ function List(props) {
         // Filter by due date
         // props.filterDate is a Date object representing the user's selected date
         // props.filterDateMode is a string representing the user's selected date mode
-        //      Can be "", "on", "before", or "after"
+        // Can be "", "on", "before", or "after"
         setDateFilteredTasks(tasks.filter(task => {
             const taskDate = new Date(task.date);
             if (filterDateMode === "") {
@@ -41,7 +39,7 @@ function List(props) {
             } else if (filterDateMode === "on") {
                 return taskDate.getFullYear() === filterDate.getFullYear() &&
                     taskDate.getMonth() === filterDate.getMonth() &&
-                    taskDate.getDate() === filterDate.getDate();
+                    taskDate.getDate() + 1 === filterDate.getDate();
             } else if (filterDateMode === "before") {
                 return taskDate < filterDate;
             } else if (props.filterDateMode === "after") {

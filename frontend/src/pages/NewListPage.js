@@ -9,12 +9,12 @@ function NewListPage() {
 
     const newListHandler = (list) => {
         axios.post("http://localhost:8080/addList/", list)
-            .then(() => navigate("/workspaces/" + id + "/" + boardId, { replace: true }));
+            .then(() => navigate(`/workspaces/${id}/${boardId}`, { replace: true }));
     }
 
     return (
         <Container>
-            <Button variant="secondary" href={`/workspaces/${id}/${boardId}`} className="my-2">
+            <Button href={`/workspaces/${id}/${boardId}`} className="my-2">
                 Return to Board
             </Button>
             <h1>New List</h1>

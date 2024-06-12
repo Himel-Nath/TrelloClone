@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button } from "@mui/material";
+import { Container, Form } from "react-bootstrap";
 
 function NewWorkspaceForm(props) {
     const [title, setTitle] = useState('');
@@ -38,7 +39,7 @@ function NewWorkspaceForm(props) {
                     <Form.Control as="textarea" rows={3} placeholder="Workspace Description" value={description} onChange={handleDescriptionChange}/>
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
+                <Button type='submit' variant='contained' color='primary' sx={{ marginTop: 2 }}>
                     Create Workspace
                 </Button>
             </Form>

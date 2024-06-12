@@ -1,11 +1,9 @@
-import { React, useState } from "react";
 import TextField from "@mui/material/TextField";
-import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { Card, Col, Form, Row } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function ListFilterForm(props) {
-
     return (
         <Card className="mb-5">
             <Card.Header>
@@ -40,7 +38,7 @@ function ListFilterForm(props) {
                 <Col>
                     {/* Select dropdown for due date filtering */}
                     <Form.Group controlId="formDueDateFilter">
-                        <Form.Label>Due Date Filter Mode</Form.Label>
+                        <Form.Label>Due Date Filter</Form.Label>
                         <Form.Control as="select" onChange={props.onDueDateChangeHandler}>
                             <option value="">Don't filter by date</option>
                             <option value="on">Show only tasks due on date</option>
