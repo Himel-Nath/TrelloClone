@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "lists")
+@Table(name = "task_lists")
 public class List {
 
     @Id

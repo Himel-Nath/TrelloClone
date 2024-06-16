@@ -31,7 +31,7 @@ public class TaskController {
 
     @GetMapping(value = "getTaskByList/{id}", produces = "application/json")
     public List<Task> findByListID(@PathVariable("id") Integer list_id){
-        return  taskRepository.findByListID(list_id);
+        return  taskRepository.findByListId(list_id);
     }
 
     @GetMapping(value = "getTaskByDueDate/{DueDate}", produces = "application/json")

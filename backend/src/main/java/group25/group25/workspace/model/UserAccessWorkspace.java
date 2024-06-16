@@ -15,7 +15,7 @@ public class UserAccessWorkspace {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "access_id")
     private int id;
     @Column(name = "user_id")

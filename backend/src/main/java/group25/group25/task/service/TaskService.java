@@ -7,8 +7,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface TaskService {
 
-
-    public Task saveTask(Task task);
-
-
+    Task saveTask(Task task);
 }

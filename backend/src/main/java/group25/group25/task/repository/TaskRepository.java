@@ -13,26 +13,26 @@ import java.util.List;
 public interface TaskRepository extends JpaRepository<Task, Integer>{
 
     @Query("SELECT t FROM Task t where t.date = ?1")
-    public List<Task> findByDueDate (String date);
+    List<Task> findByDueDate (String date);
 
     @Query("SELECT t FROM Task t where t.title = ?1")
-    public List<Task> findByTitle(String title);
+    List<Task> findByTitle(String title);
 
     @Query("SELECT t FROM Task t where t.assigneeId = ?1")
-    public List<Task> findByAssigneeId(Integer assigneeId);
+    List<Task> findByAssigneeId(Integer assigneeId);
 
     @Query("SELECT t FROM Task t where t.listId = ?1")
-    public List<Task> findByListID(Integer list_id);
+    List<Task> findByListId(Integer list_id);
 
     @Modifying
     @Query("UPDATE Task t SET t.listId =?1 WHERE t.id =?2")
-    public void updateStatusById(Integer listId, Integer id);
+    void updateStatusById(Integer listId, Integer id);
 
     @Modifying
     @Query("UPDATE Task t SET t.date =?1 WHERE t.id =?2")
-    public void updateDueDateById(String dueDate, Integer id);
+    void updateDueDateById(String dueDate, Integer id);
 
     @Modifying
     @Query("UPDATE Task t SET t.assigneeId =?1 WHERE t.id =?2")
-    public void updateUserById(Integer assigneeId, Integer id);
+    void updateUserById(Integer assigneeId, Integer id);
 }

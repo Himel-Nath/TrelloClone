@@ -8,7 +8,7 @@ import group25.group25.workspace.model.Workspace;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "cards")
+@Table(name = "task_cards")
 public class Task {
 
     @Id

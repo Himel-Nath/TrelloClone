@@ -13,14 +13,8 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     TaskRepository taskRepository;
 
-
-
     @Override
     public Task saveTask(Task task) {
-
         return  taskRepository.save(task);
-
     }
-
-
 }

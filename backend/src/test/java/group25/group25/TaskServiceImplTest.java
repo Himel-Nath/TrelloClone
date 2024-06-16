@@ -21,12 +21,10 @@ import static org.mockito.Mockito.when;
 class TaskServiceImplTest {
 
     @Mock
-
     TaskRepository taskRepository;
 
 
     @InjectMocks
-
     TaskServiceImpl taskService;
 
 
@@ -55,7 +53,6 @@ class TaskServiceImplTest {
         List<Task> taskList1 = taskRepository.findByDueDate("todo111");
         Assertions.assertNotNull(taskList);
         Assertions.assertNotNull(taskList1);
-
     }
 
     @Test
@@ -65,14 +62,13 @@ class TaskServiceImplTest {
         List<Task> taskList1 = taskRepository.findByAssigneeId(0);
         Assertions.assertNotNull(taskList);
         Assertions.assertNotNull(taskList1);
-
     }
 
     @Test
     void testFindByListID() {
         List<Task> taskList = new ArrayList<>();
-        when(taskRepository.findByListID(anyInt())).thenReturn(taskList);
-        List<Task> taskList1 = taskRepository.findByListID(1);
+        when(taskRepository.findByListId(anyInt())).thenReturn(taskList);
+        List<Task> taskList1 = taskRepository.findByListId(1);
         Assertions.assertNotNull(taskList);
         Assertions.assertNotNull(taskList1);
 
@@ -80,24 +76,18 @@ class TaskServiceImplTest {
 
     @Test
     void testUpdateStatusById() {
-
         int newListId = 2;
         int taskId = 5;
         taskRepository.updateStatusById(newListId,taskId);
         verify(taskRepository).updateStatusById(newListId,taskId);
-
-
     }
 
     @Test
     void testUpdateDueDateById() {
-
         String newDueDate = "2022-07-19 05:22:00";
         int taskId = 5;
         taskRepository.updateDueDateById(newDueDate,taskId);
         verify(taskRepository).updateDueDateById(newDueDate,taskId);
-
-
     }
 
     @Test
@@ -105,9 +95,5 @@ class TaskServiceImplTest {
         int taskId = 5;
         taskRepository.updateUserById(0,taskId);
         verify(taskRepository).updateUserById(0,taskId);
-
-
     }
-
-
 }
