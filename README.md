@@ -6,7 +6,7 @@
 # Project
 
 - Project Name: Trello Application
-- Project Description: A web based trello application clone build using ReactJS and Spring Boot
+- Project Description: A web based trello application clone built using ReactJS and Spring Boot
 
 # Frontend
 
