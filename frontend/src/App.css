@@ -40,8 +40,8 @@
 }
 
 :root {
-  --primary-color: #704072;
-  --secondary-color: #eae0cb;
+  --primary-color: hsl(175, 36%, 33%);
+  --secondary-color: #aee5e0;
   --text-color: #282c34;
   --text-color-secondary: #f5f6f7;
   --footer-color: #3c3639;

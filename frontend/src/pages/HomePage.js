@@ -20,14 +20,14 @@ function HomePage() {
                             This is a simple Trello clone. Please use the navigation at the top to get started.
                         </Typography>
                         <Typography variant="body1" gutterBottom>
-                            This project was created as a collaborative effort for the Software Engineering Course.
+                            This website was created to improve my skills in the tech stack and also as a portfolio project.
                         </Typography>
                         <Typography variant="body1" component="div" gutterBottom>
                             <ul>
                                 <li>Tech stack involves Spring Boot and ReactJS</li>
-                                <li>Developed by Trent, Songbo, Joyce, Mingxuan, Himel</li>
-                                <li>Completed on 07/2022</li>
-                                <li>Revived 09/2023</li>
+                                <li>Developed by Himel</li>
+                                <li>Started on 11/2023</li>
+                                <li>Completed 06/2024</li>
                             </ul>
                         </Typography>
                     </Box>
